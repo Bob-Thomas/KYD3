@@ -38,6 +38,12 @@ script:
 after_script:
   - echo $TRAVIS_COMMIT_RANGE
   - echo $TRAVIS_COMMIT_LOG
+deploy:
+  provider: releases
+  api_key: $OAUTH
+  file: "$HOST-release.tar.gz"
+  skip_cleanup: true
+  draft: true
 jobs:
   include:
     - stage: test
@@ -48,9 +54,3 @@ jobs:
         DEP_OPTS="NO_QT=1 NO_UPNP=1 DEBUG=1 ALLOW_HOST_PACKAGES=1"
         GOAL="install"
         BITCOIN_CONFIG="--disable-tests --disable-gui-tests --disable-bench --disable-zmq --enable-experimental-asm CFLAGS=-fPIC CXXFLAGS=-fPIC --enable-shared --with-incompatible-bdb"
-        deploy:
-          provider: releases
-          api_key: $OAUTH
-          file: "$HOST-release.tar.gz"
-          skip_cleanup: true
-          draft: true
