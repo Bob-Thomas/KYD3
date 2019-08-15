@@ -29,7 +29,7 @@ travis_fold start "make"
 mkdir release
 make -j4
 make install DESTDIR=$PWD/release
-CURRENTDIR=$PWD:
+CURRENTDIR=$PWD
 cd ./release/usr/local/bin && tar -cvzf ../../../$HOST-release.tar.gz *
 cd $CURRENTDIR
 travis_fold end "make"
