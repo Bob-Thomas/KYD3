@@ -3,7 +3,7 @@
 export LC_ALL=C.UTF-8
 # docker pull "$DOCKER_NAME_TAG"
 env | grep -E '^(CCACHE_|WINEDEBUG|LC_ALL|BOOST_TEST_RANDOM|CONFIG_SHELL)' | tee /tmp/env
-# BITCOIN_CONFIG_ALL="--disable-dependency-tracking --prefix=$TRAVIS_BUILD_DIR/depends/$HOST"
+BITCOIN_CONFIG_ALL="--disable-dependency-tracking --prefix=$TRAVIS_BUILD_DIR/depends/$HOST"
 # DOCKER_ID=$(docker run $DOCKER_ADMIN -idt --mount type=bind,src=$TRAVIS_BUILD_DIR,dst=$TRAVIS_BUILD_DIR --mount type=bind,src=$CCACHE_DIR,dst=$CCACHE_DIR -w $TRAVIS_BUILD_DIR --env-file /tmp/env $DOCKER_NAME_TAG)
 
 # DOCKER_EXEC () {
@@ -22,16 +22,16 @@ travis_fold start "autogen"
 travis_fold end "autogen"
 
 travis_fold start "configure"
-./configure --cache-file=config.cache $BITCOIN_CONFIG || ( cat config.log && false)
+./configure --cache-file=config.cache $BITCOIN_CONFIG_ALL $BITCOIN_CONFIG || ( cat config.log && false)
 travis_fold end "configure"
 
 travis_fold start "make"
 mkdir release
 make -j4
-make install DESTDIR=$PWD/release
+make install DESTDIR=$TRAVIS_BUILD_DIR/release
 ls
 CURRENTDIR=$PWD
-cd ./release/usr/local/bin && tar -cvzf $CURRENTDIR/$NAME.tar.gz *
-cd $CURRENTDIR
+cd ./release/usr/local/bin && tar -cvzf $TRAVIS_BUILD_DIR/$NAME.tar.gz *
+cd $TRAVIS_BUILD_DIR
 ls
 travis_fold end "make"
