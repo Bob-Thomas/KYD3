@@ -55,6 +55,7 @@ jobs:
     - stage: ubuntu16
       dist: xenial
       env: >-
+        NAME=ubuntu16.04-$HOST
         HOST=x86_64-86-linux-gnu
         PACKAGES="python3-zmq qtbase5-dev qttools5-dev-tools protobuf-compiler libdbus-1-dev libharfbuzz-dev libprotobuf-dev"
         DEP_OPTS="NO_QT=1 NO_UPNP=1 DEBUG=1 ALLOW_HOST_PACKAGES=1"
@@ -63,6 +64,7 @@ jobs:
     - stage: ubuntu18
       dist: bionic
       env: >-
+        NAME=ubuntu18.04-$HOST
         HOST=x86_64-86-linux-gnu
         PACKAGES="python3-zmq qtbase5-dev qttools5-dev-tools protobuf-compiler libdbus-1-dev libharfbuzz-dev libprotobuf-dev"
         DEP_OPTS="NO_QT=1 NO_UPNP=1 DEBUG=1 ALLOW_HOST_PACKAGES=1"
