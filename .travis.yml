@@ -11,8 +11,8 @@ cache:
 stages:
  - ubuntu16
  - ubuntu18
-  - windows32
-  - windows64
+ - windows32
+ - windows64
   #- osx
 env:
   global:
@@ -83,7 +83,7 @@ jobs:
         BITCOIN_CONFIG="--enable-reduce-exports"
       install:
         - travis_retry sudo apt-get install python3 nsis g++-mingw-w64-i686 wine-binfmt wine32 -y
-      - stage: windows64
+    - stage: windows64
       dist: bionic
       env: >-
         HOST=x86_64-w64-mingw32
