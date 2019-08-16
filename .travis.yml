@@ -37,7 +37,7 @@ install:
   - travis_retry sudo apt-get install --no-install-recommends --no-upgrade -qq $PACKAGES $DOCKER_PACKAGES
 before_script:
   - export -f travis_fold
-  - set -o errexit; source .travis/before_script.sh
+  - source .travis/before_script.sh
 script:
   - set -o errexit; source .travis/install.sh
 after_script:
