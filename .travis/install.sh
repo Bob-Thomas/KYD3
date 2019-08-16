@@ -31,7 +31,7 @@ make -j4
 make install DESTDIR=$TRAVIS_BUILD_DIR/release
 (cd $TRAVIS_BUILD_DIR/release && ls -ld $(find .))
 echo $TRAVIS_BUILD_DIR
-cd ./release/usr/local/bin && tar -cvzf $TRAVIS_BUILD_DIR/$NAME.tar.gz *
+cd $TRAVIS_BUILD_DIR/depends/$HOST/bin && tar -cvzf $TRAVIS_BUILD_DIR/$NAME.tar.gz *
 cd $TRAVIS_BUILD_DIR
 ls
 travis_fold end "make"
