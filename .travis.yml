@@ -37,7 +37,7 @@ before_install:
 install:
 before_script:
   - export -f travis_fold
-  - set -o errexit; source ./travis/before_script.sh
+  - set -o errexit; source .travis/before_script.sh
 script:
   - set -o errexit; source .travis/install.sh
 after_script:
