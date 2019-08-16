@@ -72,6 +72,7 @@ jobs:
         GOAL="install"
         BITCOIN_CONFIG="--disable-tests --disable-gui-tests --disable-bench --enable-experimental-asm CFLAGS=-fPIC CXXFLAGS=-fPIC --enable-shared --with-incompatible-bdb"
     - stage: windows32
+      dist: bionic
       env: >-
         HOST=i686-w64-mingw32
         DPKG_ADD_ARCH="i386"
