@@ -31,7 +31,7 @@ make -j4
 make install DESTDIR=$PWD/release
 ls
 CURRENTDIR=$PWD
-cd ./release/usr/local/bin && tar -cvzf $CURRENTDIR/$HOST-release.tar.gz *
+cd ./release/usr/local/bin && tar -cvzf $CURRENTDIR/$NAME.tar.gz *
 cd $CURRENTDIR
 ls
 travis_fold end "make"
