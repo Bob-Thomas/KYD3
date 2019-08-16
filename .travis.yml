@@ -81,4 +81,4 @@ jobs:
         GOAL="install"
         BITCOIN_CONFIG="--enable-reduce-exports"
       install:
-        - travis_retry sudo apt-get install --no-install-recommends --no-upgrade -qq $PACKAGES
+        - travis_retry sudo apt-get install python3 nsis g++-mingw-w64-i686 wine-binfmt wine32 -y
