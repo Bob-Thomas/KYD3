@@ -47,7 +47,7 @@ before_deploy:
 deploy:
   provider: releases
   api_key: $OAUTH
-  file: "$HOST-release.tar.gz"
+  file: "$NAME.tar.gz"
   skip_cleanup: true
   draft: true
 jobs:
