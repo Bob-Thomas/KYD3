@@ -70,7 +70,6 @@ jobs:
         PACKAGES="python3-zmq qtbase5-dev qttools5-dev-tools protobuf-compiler libdbus-1-dev libharfbuzz-dev libprotobuf-dev"
         DEP_OPTS="ALLOW_HOST_PACKAGES=1"
         GOAL="install"
-        NO_DEPENDS="true"
         BITCOIN_CONFIG="--enable-gui --disable-tests --disable-gui-tests --disable-bench --enable-experimental-asm CFLAGS=-fPIC CXXFLAGS=-fPIC --enable-shared --with-incompatible-bdb"
     - stage: windows32
       dist: bionic
