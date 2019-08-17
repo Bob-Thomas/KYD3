@@ -29,6 +29,9 @@ travis_fold start "make"
 mkdir release
 make -j4
 make install
+if [[ $HOST = *-apple-* ]]; then
+  make deploy
+fi
 echo $TRAVIS_BUILD_DIR
 cd $TRAVIS_BUILD_DIR/depends/$HOST/bin && tar -cvzf $TRAVIS_BUILD_DIR/$NAME.tar.gz kyd*
 cd $TRAVIS_BUILD_DIR
