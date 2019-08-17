@@ -56,26 +56,6 @@ jobs:
   include:
     - stage: osx-dmg
       os: osx
-      addons:
-      homebrew:
-        packages:
-          - autoconf
-          - automake
-          - berkeley-db4
-          - libtool
-          - boost
-          - miniupnpc
-          - openssl
-          - pkg-config
-          - protobuf
-          - python3
-          - qt5
-          - zmq
-          - libevent
-          - qrencode
-          - gmp
-          - librsvg
-        update: true
       env: >-
         HOST=x86_64-apple-darwin14
         NAME=osx-$HOST
@@ -86,6 +66,7 @@ jobs:
         GOAL="all deploy"
         BITCOIN_CONFIG="--enable-gui --enable-reduce-exports --enable-werror"
       install:
+        - brew install librsvg autoconf automake berkeley-db4 libtool boost miniupnpc openssl pkg-config protobuf python3 qt5 zmq libevent qrencode gmp
       before_script:
         - export LDFLAGS+=-L/usr/local/opt/openssl/lib
         - export CPPFLAGS+=-I/usr/local/opt/openssl/include
