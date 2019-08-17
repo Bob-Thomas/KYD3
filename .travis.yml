@@ -85,6 +85,7 @@ jobs:
         RUN_FUNCTIONAL_TESTS=false
         GOAL="all deploy"
         BITCOIN_CONFIG="--enable-gui --enable-reduce-exports --enable-werror"
+      install:
       before_script:
         - export LDFLAGS+=-L/usr/local/opt/openssl/lib
         - export CPPFLAGS+=-I/usr/local/opt/openssl/include
