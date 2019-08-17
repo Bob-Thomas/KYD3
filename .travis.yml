@@ -9,11 +9,11 @@ cache:
     - depends/sdk-sources
     - $HOME/.ccache
 stages:
-#  - ubuntu16
-#  - ubuntu18
-#  - windows32
-#  - windows64
-#  - osx
+ - ubuntu16
+ - ubuntu18
+ - windows32
+ - windows64
+ - osx
  - osx-dmg
 env:
   global:
@@ -106,7 +106,7 @@ jobs:
       install:
         - travis_retry sudo apt-get install $PACKAGES -y
       after_script:
-        - mv KYD-qt.app $NAME.app
+        - mv KYD-Qt.app $NAME.app
       deploy:
         provider: releases
         api_key: $OAUTH
