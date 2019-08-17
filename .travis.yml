@@ -14,6 +14,7 @@ stages:
  - windows32
  - windows64
  - osx
+ - osx-dmg
 env:
   global:
     - MAKEJOBS=-j3
@@ -48,11 +49,52 @@ before_deploy:
 deploy:
   provider: releases
   api_key: $OAUTH
-  file: "$NAME.tar.gz"
+  file: "$NAME*"
   skip_cleanup: true
   draft: true
 jobs:
   include:
+    - stage: osx-dmg
+      os: osx
+      addons:
+      homebrew:
+        packages:
+          - autoconf
+          - automake
+          - berkeley-db4
+          - libtool
+          - boost
+          - miniupnpc
+          - openssl
+          - pkg-config
+          - protobuf
+          - python3
+          - qt5
+          - zmq
+          - libevent
+          - qrencode
+          - gmp
+          - librsvg
+        update: true
+      env: >-
+        HOST=x86_64-apple-darwin14
+        NAME=osx-$HOST
+        PACKAGES="cmake imagemagick libcap-dev librsvg2-bin libz-dev libbz2-dev libtiff-tools python-dev python3-setuptools-git"
+        OSX_SDK=10.11
+        RUN_UNIT_TESTS=false
+        RUN_FUNCTIONAL_TESTS=false
+        GOAL="all deploy"
+        BITCOIN_CONFIG="--enable-gui --enable-reduce-exports --enable-werror"
+      before_script:
+        - export LDFLAGS+=-L/usr/local/opt/openssl/lib
+        - export CPPFLAGS+=-I/usr/local/opt/openssl/include
+      script:
+        - ./autogen.sh
+        - ./configure $BITCOIN_CONFIG
+        - make
+        - make check
+        - make deploy
+        - 
     - stage: ubuntu16
       dist: xenial
       env: >-
