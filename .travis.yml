@@ -105,7 +105,7 @@ jobs:
         BITCOIN_CONFIG="--enable-gui --enable-reduce-exports --enable-werror"
       install:
         - travis_retry sudo apt-get install $PACKAGES -y
-      after_script:
+      before_deploy:
         - mv KYD-Qt.app $NAME.app
       deploy:
         provider: releases
