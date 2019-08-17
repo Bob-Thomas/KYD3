@@ -9,11 +9,11 @@ cache:
     - depends/sdk-sources
     - $HOME/.ccache
 stages:
- - ubuntu16
- - ubuntu18
- - windows32
- - windows64
- - osx
+#  - ubuntu16
+#  - ubuntu18
+#  - windows32
+#  - windows64
+#  - osx
  - osx-dmg
 env:
   global:
@@ -65,8 +65,9 @@ jobs:
         RUN_FUNCTIONAL_TESTS=false
         GOAL="all deploy"
         BITCOIN_CONFIG="--enable-gui --enable-reduce-exports --enable-werror"
-      install:
-        - brew update && brew install librsvg autoconf automake berkeley-db4 libtool boost miniupnpc openssl pkg-config protobuf python3 qt5 zmq libevent qrencode gmp 2>/dev/null
+      before_install:
+        - brew update
+        - brew install librsvg autoconf automake berkeley-db4 libtool boost miniupnpc openssl pkg-config protobuf python3 qt5 zmq libevent qrencode gmp
       before_script:
         - export LDFLAGS+=-L/usr/local/opt/openssl/lib
         - export CPPFLAGS+=-I/usr/local/opt/openssl/include
