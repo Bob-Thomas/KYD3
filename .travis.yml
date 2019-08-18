@@ -14,5 +14,5 @@ script:
   - export OPENSSL_ROOTDIR=/usr/local/opt/openssl/
   - export BOOST_ROOT=/usr/local/opt/boost/
   - echo $LDFLAGS
-  - ./autogen.sh && ./configure --with-gui=qt5 --with-boost-system=boost_system-mt --with-boost-filesystem=boost_filesystem-mt --with-boost-thread=boost_thread-mt --with-boost-chrono=boost_chrono-mt --disable-tests && make -j4 && make deploy
+  - ./autogen.sh && ./configure --with-gui=qt5 --disable-tests && make -j4 && make deploy
   - ls
