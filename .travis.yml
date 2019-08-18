@@ -28,7 +28,6 @@ env:
     - CCACHE_COMPRESS=1
     - CCACHE_DIR=$HOME/.ccache
     - BASE_OUTDIR=$TRAVIS_BUILD_DIR/out
-    - SDK_URL=https://bitcoincore.org/depends-sources/sdks
     - WINEDEBUG=fixme-all
     - DOCKER_PACKAGES="build-essential libtool autotools-dev automake pkg-config libssl-dev libevent-dev bsdmainutils python3 libboost-system-dev libboost-filesystem-dev libboost-chrono-dev libboost-program-options-dev libboost-test-dev libboost-thread-dev git make gcc g++ autoconf libboost-all-dev software-properties-common libzmq3-dev libdb4.8-dev libdb4.8++-dev libminiupnpc-dev libzmq3-dev libqrencode-dev autoconf libcurl4-openssl-dev libgmp-dev libleveldb-dev libmicrohttpd-dev libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev qttools5-dev-tools libprotobuf-dev protobuf-compiler"
 before_install:
@@ -98,7 +97,7 @@ jobs:
         HOST=x86_64-apple-darwin14
         NAME=osx-$HOST
         PACKAGES="cmake imagemagick libcap-dev librsvg2-bin libz-dev libbz2-dev libtiff-tools python-dev python3-setuptools-git"
-        OSX_SDK=10.14
+        SDK_URL=https://github.com/phracker/MacOSX-SDKs/releases/download/10.14-beta4/MacOSX10.14.sdk.tar.xz
         RUN_UNIT_TESTS=false
         RUN_FUNCTIONAL_TESTS=false
         GOAL="all deploy"
