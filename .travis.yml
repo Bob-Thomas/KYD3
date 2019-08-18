@@ -108,6 +108,6 @@ jobs:
       deploy:
         provider: releases
         api_key: $OAUTH
-        file: "KYD-Qt.app"
+        file: "KYD-Core.app"
         skip_cleanup: true
         draft: true
