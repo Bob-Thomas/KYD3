@@ -12,7 +12,8 @@ script:
   - export LDFLAGS+=-L/usr/local/opt/openssl/lib
   - export CPPFLAGS+=-I/usr/local/opt/openssl/include
   - export OPENSSL_ROOTDIR=/usr/local/opt/openssl/
-  - export BOOST_ROOT=/usr/local/opt/boost/
+  # - export BOOST_ROOT=/usr/local/opt/boost/
+  - brew link --overwrite --force boost@1.60
   - echo $LDFLAGS
   - ./autogen.sh && ./configure --with-gui=qt5 --disable-tests && make -j4 && make deploy
   - ls
