@@ -6,7 +6,7 @@ script:
   - brew update
   - brew cleanup -s
   - brew install autoconf fontconfig gdbm glib harfbuzz jpeg libffi libtiff openssl pixman python@2 sqlite automake freetype gdk-pixbuf gmp icu4c libcroco libpng libtool pango pkg-config qt watch berkeley-db@4 cairo fribidi gettext graphite2 iperf libevent librsvg miniupnpc pcre protobuf readline
-  - brew install boost --with-python
+  - brew install boost-python
   - export LDFLAGS+="-L/usr/local/opt/boost@1.57/lib"
   - export CPPFLAGS+="-I/usr/local/opt/boost@1.57/include"
   - export LDFLAGS+=-L/usr/local/opt/openssl/lib
