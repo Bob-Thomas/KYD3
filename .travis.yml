@@ -10,5 +10,5 @@ script:
   - export CPPFLAGS+="-I/usr/local/opt/boost@1.57/include"
   - export LDFLAGS+=-L/usr/local/opt/openssl/lib
   - export CPPFLAGS+=-I/usr/local/opt/openssl/include
-  - ./autogen.sh && ./configure --with-gui=qt5 --disable-tests && make -j4 && make deploy
+  - ./autogen.sh && ./configure --with-gui=qt5 --with-boost-system=boost_system-mt --with-boost-filesystem=boost_filesystem-mt --with-boost-thread=boost_thread-mt --with-boost-chrono=boost_chrono-mt --disable-tests && make -j4 && make deploy
   - ls
