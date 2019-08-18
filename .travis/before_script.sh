@@ -11,7 +11,7 @@ export LC_ALL=C.UTF-8
 mkdir -p depends/SDKs depends/sdk-sources
 
 if [ -n "$OSX_SDK" -a ! -f depends/sdk-sources/MacOSX${OSX_SDK}.sdk.tar.gz ]; then
-  curl --location --fail https://github.com/phracker/MacOSX-SDKs/releases/download/10.14-beta4/MacOSX10.14.sdk.tar.xz -o depends/sdk-sources/MacOSX${OSX_SDK}.sdk.tar.gz
+  curl --location --fail $OSX_SDK_URL -o depends/sdk-sources/MacOSX${OSX_SDK}.sdk.tar.gz
 fi
 if [ -n "$OSX_SDK" -a -f depends/sdk-sources/MacOSX${OSX_SDK}.sdk.tar.gz ]; then
   tar -C depends/SDKs -xf depends/sdk-sources/MacOSX${OSX_SDK}.sdk.tar.gz
