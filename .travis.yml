@@ -1,6 +1,14 @@
 os: osx
 osx_image: xcode10.2
-
+sudo: required
+before_deploy:
+  - export TRAVIS_TAG="$TRAVIS_BUILD_NUMBER-beep"
+deploy:
+  provider: releases
+  api_key: $OAUTH
+  file: "KYD-Core.dmg"
+  skip_cleanup: true
+  draft: true
 script:
   - brew uninstall --force --ignore-dependencies openssl autoconf fontconfig gdbm boost@1.57 glib harfbuzz jpeg libffi libtiff pixman python@2 sqlite automake freetype gdk-pixbuf gmp icu4c libcroco libpng libtool pango pkg-config qt watch berkeley-db@4 cairo fribidi gettext graphite2 iperf libevent librsvg miniupnpc pcre protobuf readline || exit 1
   - brew update
