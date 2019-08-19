@@ -10,7 +10,7 @@ script:
   - export CPPFLAGS+="-I/usr/local/opt/boost/include"
   - export LDFLAGS+=-L/usr/local/opt/openssl/lib
   - export CPPFLAGS+=-I/usr/local/opt/openssl/include
-  - brew link --overwrite --force boost@1.60
+  - brew link --overwrite --force boost@1.57
   - echo $LDFLAGS
   - ./autogen.sh && ./configure --with-gui=qt5 --with-boost-system=boost_system-mt --with-boost-filesystem=boost_filesystem-mt --with-boost-thread=boost_thread-mt --with-boost-chrono=boost_chrono-mt --disable-tests && make -j4 && make deploy
   - ls
