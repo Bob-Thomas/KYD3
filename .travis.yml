@@ -31,15 +31,13 @@ env:
     - SDK_URL=https://bitcoincore.org/depends-sources/sdks
     - WINEDEBUG=fixme-all
     - DOCKER_PACKAGES="build-essential libtool autotools-dev automake pkg-config libssl-dev libevent-dev bsdmainutils python3 libboost-system-dev libboost-filesystem-dev libboost-chrono-dev libboost-program-options-dev libboost-test-dev libboost-thread-dev git make gcc g++ autoconf libboost-all-dev software-properties-common libzmq3-dev libdb4.8-dev libdb4.8++-dev libminiupnpc-dev libzmq3-dev libqrencode-dev autoconf libcurl4-openssl-dev libgmp-dev libleveldb-dev libmicrohttpd-dev libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev qttools5-dev-tools libprotobuf-dev protobuf-compiler"
-install:
-  -
-  -
-  -
 before_script:
   - export -f travis_fold
-  - source .travis/before_script.sh
+  - source .travis/$SCRIPT-before-script.sh
+install:
+  - set -o errexit; source .travis/$SCRIPT-install.sh
 script:
-  - set -o errexit; source .travis/install.sh
+  - set -o errexit; source .travis/$SCRIPT-script.sh
 after_script:
   - echo $TRAVIS_COMMIT_RANGE
   - echo $TRAVIS_COMMIT_LOG
