@@ -7,6 +7,7 @@ cache:
     - depends/built
     - depends/sdk-sources
     - $HOME/.ccache
+    - $HOME/Library/Caches/Homebrew
 stages:
   - ubuntu16
   - ubuntu18
