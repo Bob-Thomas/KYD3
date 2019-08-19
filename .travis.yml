@@ -101,7 +101,7 @@ jobs:
         SCRIPT=mac
     - stage: osx-mojave
       os: osx
-      osx_image: xcode11
+      osx_image: xcode10.2
       env: >-
         RELEASE_FILE=mojave-KYD.dmg
         SCRIPT=mac
