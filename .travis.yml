@@ -103,10 +103,6 @@ jobs:
     - stage: osx-mojave
       os: osx
       osx_image: xcode10.2
-      before_install:
-        - cd /usr/local/Homebrew
-        - git pull origin master
-        - brew update && brew upgrade
       env: >-
         RELEASE_FILE=mojave-KYD.dmg
         SCRIPT=mac
