@@ -1,13 +1,13 @@
 language: minimal
 sudo: required
 services:
-#   - docker
 cache:
   ccache: true
   directories:
     - depends/built
     - depends/sdk-sources
     - $HOME/.ccache
+    - $HOME/Library/Caches/Homebrew
 stages:
  - ubuntu16
  - ubuntu18
@@ -46,7 +46,7 @@ before_deploy:
 deploy:
   provider: releases
   api_key: $OAUTH
-  file: "$RELEASE_FILE*"
+  file: "$RELEASE_FILE"
   skip_cleanup: true
   draft: true
 jobs:
