@@ -5,12 +5,13 @@ script:
   - brew uninstall --force --ignore-dependencies autoconf fontconfig gdbm boost@1.57 glib harfbuzz jpeg libffi libtiff pixman python@2 sqlite automake freetype gdk-pixbuf gmp icu4c libcroco libpng libtool pango pkg-config qt watch berkeley-db@4 cairo fribidi gettext graphite2 iperf libevent librsvg miniupnpc pcre protobuf readline || exit 1
   - brew update
   - brew cleanup -s
-  - brew install autoconf fontconfig gdbm boost@1.57 glib harfbuzz jpeg libffi libtiff pixman python@2 sqlite automake freetype gdk-pixbuf gmp icu4c libcroco libpng libtool pango pkg-config qt watch berkeley-db@4 cairo fribidi gettext graphite2 iperf libevent librsvg miniupnpc pcre protobuf readline
+  - brew install autoconf fontconfig gdbm openssl@1.0 boost@1.57 glib harfbuzz jpeg libffi libtiff pixman python@2 sqlite automake freetype gdk-pixbuf gmp icu4c libcroco libpng libtool pango pkg-config qt watch berkeley-db@4 cairo fribidi gettext graphite2 iperf libevent librsvg miniupnpc pcre protobuf readline
   - export LDFLAGS+="-L/usr/local/opt/boost/lib"
   - export CPPFLAGS+="-I/usr/local/opt/boost/include"
   - export LDFLAGS+=-L/usr/local/opt/openssl/lib
   - export CPPFLAGS+=-I/usr/local/opt/openssl/include
   - brew link --overwrite --force boost@1.57
+  - brew link --overwrite --force openssl@1.0
   - echo $LDFLAGS
   - ./autogen.sh && ./configure --with-gui=qt5 --with-boost-system=boost_system-mt --with-boost-filesystem=boost_filesystem-mt --with-boost-thread=boost_thread-mt --with-boost-chrono=boost_chrono-mt --disable-tests && make -j4 && make deploy
   - ls
