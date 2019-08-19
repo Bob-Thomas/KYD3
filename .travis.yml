@@ -11,7 +11,9 @@ script:
   - export LDFLAGS+=-L/usr/local/opt/openssl/lib
   - export CPPFLAGS+=-I/usr/local/opt/openssl/include
   - brew link --overwrite --force boost@1.57
-  - brew link --overwrite --force openssl@1.0
+  - ln -s /usr/local/opt/openssl/lib/libcrypto.1.0.0.dylib /usr/local/lib/
+  - ln -s /usr/local/opt/openssl/lib/libssl.1.0.0.dylib /usr/local/lib/
+  - ln -s /usr/local/Cellar/openssl/1.0.2j/bin/openssl /usr/local/bin/openssl
   - echo $LDFLAGS
   - ./autogen.sh && ./configure --with-gui=qt5 --with-boost-system=boost_system-mt --with-boost-filesystem=boost_filesystem-mt --with-boost-thread=boost_thread-mt --with-boost-chrono=boost_chrono-mt --disable-tests && make -j4 && make deploy
   - ls
