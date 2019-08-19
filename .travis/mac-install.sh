@@ -5,8 +5,8 @@
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 export LC_ALL=C.UTF-8
-
-brew uninstall --force --ignore-dependencies git openssl autoconf fontconfig gdbm boost@1.57 glib harfbuzz jpeg libffi libtiff pixman python@2 sqlite automake freetype gdk-pixbuf gmp icu4c libcroco libpng libtool pango pkg-config qt watch berkeley-db@4 cairo fribidi gettext graphite2 iperf libevent librsvg miniupnpc pcre protobuf readline || exit 1
+brew reinstall git
+brew uninstall --force --ignore-dependencies openssl autoconf fontconfig gdbm boost@1.57 glib harfbuzz jpeg libffi libtiff pixman python@2 sqlite automake freetype gdk-pixbuf gmp icu4c libcroco libpng libtool pango pkg-config qt watch berkeley-db@4 cairo fribidi gettext graphite2 iperf libevent librsvg miniupnpc pcre protobuf readline || exit 1
 brew update
 brew cleanup -s
 brew git install autoconf fontconfig gdbm openssl@1.0 boost@1.57 glib harfbuzz jpeg libffi libtiff pixman python@2 sqlite automake freetype gdk-pixbuf gmp icu4c libcroco libpng libtool pango pkg-config qt watch berkeley-db@4 cairo fribidi gettext graphite2 iperf libevent librsvg miniupnpc pcre protobuf readline
