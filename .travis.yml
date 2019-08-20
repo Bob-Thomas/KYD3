@@ -103,12 +103,6 @@ jobs:
     - stage: osx-mojave
       os: osx
       osx_image: xcode10.2
-      before_install: >-
-      PROD=$(softwareupdate -l |
-        grep "\*.*Command Line.*$(sw_vers -productVersion|awk -F. '{print $1"."$2}')" |
-        head -n 1 | awk -F"*" '{print $2}' |
-        sed -e 's/^ *//' |
-        tr -d '\n')
       env: >-
         RELEASE_FILE=mojave-KYD.dmg
         SCRIPT=mac
