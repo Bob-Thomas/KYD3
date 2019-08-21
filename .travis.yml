@@ -100,54 +100,55 @@ jobs:
       env: >-
         RELEASE_FILE=high-KYD.dmg
         SCRIPT=mac
-    - stage: osx-mojave
-      os: osx
-      osx_image: xcode10.2
-      env: >-
-        RELEASE_FILE=mojave-KYD.dmg
-        SCRIPT=mac
-      install:
-        - echo "Skip normal brew install and use addons"
-        - csrutil disable
-        - sudo sqlite3 "/Library/Application Support/com.apple.TCC/TCC.db" 'UPDATE access SET allowed = "1";'
-      addons:
-        homebrew:
-          packages:
-            - autoconf
-            - fontconfig
-            - gdbm
-            - openssl@1.0
-            - boost@1.57
-            - glib
-            - harfbuzz
-            - jpeg
-            - libffi
-            - libtiff
-            - pixman
-            - python@2
-            - sqlite
-            - automake
-            - freetype
-            - gdk-pixbuf
-            - gmp
-            - icu4c
-            - libcroco
-            - libpng
-            - libtool
-            - pango
-            - pkg-config
-            - qt
-            - watch
-            - berkeley-db@4
-            - cairo
-            - fribidi
-            - gettext
-            - graphite2
-            - iperf
-            - libevent
-            - librsvg
-            - miniupnpc
-            - pcre
-            - protobuf
-            - readline
-        update: true
+    # https://travis-ci.community/t/osascript-stopped-working-on-macos-mojave/3657
+    # - stage: osx-mojave
+    #   os: osx
+    #   osx_image: xcode10.2
+    #   env: >-
+    #     RELEASE_FILE=mojave-KYD.dmg
+    #     SCRIPT=mac
+    #   install:
+    #     - echo "Skip normal brew install and use addons"
+    #     - csrutil disable
+    #     - sudo sqlite3 "/Library/Application Support/com.apple.TCC/TCC.db" 'UPDATE access SET allowed = "1";'
+    #   addons:
+    #     homebrew:
+    #       packages:
+    #         - autoconf
+    #         - fontconfig
+    #         - gdbm
+    #         - openssl@1.0
+    #         - boost@1.57
+    #         - glib
+    #         - harfbuzz
+    #         - jpeg
+    #         - libffi
+    #         - libtiff
+    #         - pixman
+    #         - python@2
+    #         - sqlite
+    #         - automake
+    #         - freetype
+    #         - gdk-pixbuf
+    #         - gmp
+    #         - icu4c
+    #         - libcroco
+    #         - libpng
+    #         - libtool
+    #         - pango
+    #         - pkg-config
+    #         - qt
+    #         - watch
+    #         - berkeley-db@4
+    #         - cairo
+    #         - fribidi
+    #         - gettext
+    #         - graphite2
+    #         - iperf
+    #         - libevent
+    #         - librsvg
+    #         - miniupnpc
+    #         - pcre
+    #         - protobuf
+    #         - readline
+    #     update: true
