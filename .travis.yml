@@ -41,8 +41,6 @@ script:
 after_script:
   - echo $TRAVIS_COMMIT_RANGE
   - echo $TRAVIS_COMMIT_LOG
-before_deploy:
-  - export TRAVIS_TAG="$TRAVIS_BUILD_NUMBER-beep"
 deploy:
   provider: releases
   api_key: $OAUTH
