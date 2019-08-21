@@ -108,6 +108,7 @@ jobs:
         SCRIPT=mac
       install:
         - echo "Skip normal brew install and use addons"
+        - csrutil disable
         - sudo sqlite3 "/Library/Application Support/com.apple.TCC/TCC.db" 'UPDATE access SET allowed = "1";'
       addons:
         homebrew:
