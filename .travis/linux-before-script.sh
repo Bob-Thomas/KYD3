@@ -20,5 +20,5 @@ if [[ $HOST = *-mingw32 ]]; then
  sudo update-alternatives --set $HOST-g++ $(which $HOST-g++-posix)
 fi
 if [ -z "$NO_DEPENDS" ]; then
-  CONFIG_SHELL= make $MAKEJOBS -C depends HOST=$HOST $DEP_OPTS
+  CONFIG_SHELL= make -j4 -C depends HOST=$HOST $DEP_OPTS
 fi
