@@ -3,7 +3,7 @@
 export LC_ALL=C.UTF-8
 env | grep -E '^(CCACHE_|WINEDEBUG|LC_ALL|BOOST_TEST_RANDOM|CONFIG_SHELL)' | tee /tmp/env
 BITCOIN_CONFIG_ALL="--disable-dependency-tracking --prefix=$TRAVIS_BUILD_DIR/depends/$HOST"
-
+ls $TRAVIS_BUILD_DIR/depends
 travis_fold start "autogen"
 ./autogen.sh
 travis_fold end "autogen"
@@ -19,5 +19,5 @@ make install
 echo $TRAVIS_BUILD_DIR
 cd $TRAVIS_BUILD_DIR/depends/$HOST/bin && tar -cvzf $TRAVIS_BUILD_DIR/$RELEASE_FILE kyd*
 cd $TRAVIS_BUILD_DIR
-ls
+lslikn
 travis_fold end "make"
