@@ -2,19 +2,15 @@ language: minimal
 sudo: required
 services:
 cache:
-  ccache: true
   directories:
-    - depends/built
-    - depends/sdk-sources
-    - $HOME/.ccache
+    - $TRAVIS_BUILD_DIR/depends/$HOST/
+    - $TRAVIS_BUILD_DIR/depends/built/$HOST/
+    - $TRAVIS_BUILD_DIR/depends/work/
+    - $TRAVIS_BUILD_DIR/depends/sources/
     - $HOME/Library/Caches/Homebrew
 stages:
-  - ubuntu16
-  - ubuntu18
-  - windows32
-  - windows64
-  - osx-high
-  - osx-mojave
+  - deps
+  - build
 env:
   global:
     - MAKEJOBS=-j3
@@ -50,27 +46,7 @@ deploy:
     tags: true
 jobs:
   include:
-    - stage: ubuntu16
-      dist: xenial
-      env: >-
-        SCRIPT=linux
-        HOST=x86_64-86-linux-gnu
-        RELEASE_FILE=ubuntu16.04-$HOST.tar.gz
-        PACKAGES="python3-zmq qtbase5-dev qttools5-dev-tools protobuf-compiler libdbus-1-dev libharfbuzz-dev libprotobuf-dev"
-        NO_DEPENDS="true"
-        GOAL="install"
-        BITCOIN_CONFIG="--disable-tests --disable-gui-tests --disable-bench --enable-experimental-asm CFLAGS=-fPIC CXXFLAGS=-fPIC --enable-shared --with-incompatible-bdb"
-    - stage: ubuntu18
-      dist: bionic
-      env: >-
-        SCRIPT=linux
-        HOST=x86_64-86-linux-gnu
-        RELEASE_FILE=ubuntu18.04-$HOST.tar.gz
-        PACKAGES="python3-zmq qtbase5-dev qttools5-dev-tools protobuf-compiler libdbus-1-dev libharfbuzz-dev libprotobuf-dev"
-        DEP_OPTS="ALLOW_HOST_PACKAGES=1"
-        GOAL="install"
-        BITCOIN_CONFIG="--enable-gui --disable-tests --disable-gui-tests --disable-bench --enable-experimental-asm CFLAGS=-fPIC CXXFLAGS=-fPIC --enable-shared --with-incompatible-bdb"
-    - stage: windows32
+    - stage: deps
       dist: bionic
       env: >-
         SCRIPT=linux
@@ -80,25 +56,38 @@ jobs:
         PACKAGES="python3 nsis g++-mingw-w64-i686 wine-binfmt wine32"
         GOAL="install"
         BITCOIN_CONFIG="--enable-gui --enable-reduce-exports"
-      install:
-        - travis_retry sudo apt-get install $PACKAGES -y
-    - stage: windows64
+      script: true
+    - stage: deps
       dist: bionic
       env: >-
         SCRIPT=linux
         HOST=x86_64-w64-mingw32
-        RELEASE_FILE=win64-$HOST.tar.gz
-        PACKAGES="python3 nsis g++-mingw-w64-x86-64 wine-binfmt wine1.6-amd64"
+        RELEASE_FILE=win32-$HOST.tar.gz
+        DPKG_ADD_ARCH="i386"
+        PACKAGES="python3 nsis g++-mingw-w64-i686 wine-binfmt wine32"
         GOAL="install"
         BITCOIN_CONFIG="--enable-gui --enable-reduce-exports"
-      install:
-        - travis_retry sudo apt-get install $PACKAGES -y
-    - stage: osx-high
-      os: osx
-      osx_image: xcode9.4
+      script: true
+    - stage: build
+      dist: bionic
       env: >-
-        RELEASE_FILE=high-KYD.dmg
-        SCRIPT=mac
+        SCRIPT=linux
+        HOST=i686-w64-mingw32
+        RELEASE_FILE=win32-$HOST.tar.gz
+        DPKG_ADD_ARCH="i386"
+        PACKAGES="python3 nsis g++-mingw-w64-i686 wine-binfmt wine32"
+        GOAL="install"
+        BITCOIN_CONFIG="--enable-gui --enable-reduce-exports"
+    - stage: build
+      dist: bionic
+      env: >-
+        SCRIPT=linux
+        HOST=x86_64-w64-mingw32
+        RELEASE_FILE=win32-$HOST.tar.gz
+        DPKG_ADD_ARCH="i386"
+        PACKAGES="python3 nsis g++-mingw-w64-i686 wine-binfmt wine32"
+        GOAL="install"
+        BITCOIN_CONFIG="--enable-gui --enable-reduce-exports"
     # https://travis-ci.community/t/osascript-stopped-working-on-macos-mojave/3657
     # - stage: osx-mojave
     #   os: osx
