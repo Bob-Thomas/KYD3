@@ -3,17 +3,14 @@ sudo: required
 services:
 cache:
   directories:
-    - $TRAVIS_BUILD_DIR/depends/$HOST/
     - $TRAVIS_BUILD_DIR/depends/built/$HOST/
-    - $TRAVIS_BUILD_DIR/depends/work/
-    - $TRAVIS_BUILD_DIR/depends/sources/
     - $HOME/Library/Caches/Homebrew
 stages:
   - deps
   - build
 env:
   global:
-    - MAKEJOBS=-j3
+    - MAKEJOBS=-j4
     - RUN_UNIT_TESTS=true
     - RUN_FUNCTIONAL_TESTS=false # Not Yet Implemented
     - RUN_BENCH=false # Set to true for any one job that has debug enabled, to quickly check bench is not crashing or hitting assertions
@@ -37,13 +34,15 @@ script:
 after_script:
   - echo $TRAVIS_COMMIT_RANGE
   - echo $TRAVIS_COMMIT_LOG
+before_deploy:
+    - export TRAVIS_TAG=${TRAVIS_TAG:-$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)}
 deploy:
   provider: releases
   api_key: $OAUTH
   file: "$RELEASE_FILE"
   skip_cleanup: true
-  on:
-    tags: true
+  draft: true
+
 jobs:
   include:
     - stage: deps
@@ -68,6 +67,37 @@ jobs:
         GOAL="install"
         BITCOIN_CONFIG="--enable-gui --enable-reduce-exports"
       script: true
+    - stage: deps
+      dist: bionic
+      env: >-
+        SCRIPT=linux
+        HOST=x86_64-86-linux-gnu
+        RELEASE_FILE=ubuntu18.04-$HOST.tar.gz
+        PACKAGES="python3-zmq qtbase5-dev qttools5-dev-tools protobuf-compiler libdbus-1-dev libharfbuzz-dev libprotobuf-dev"
+        DEP_OPTS="ALLOW_HOST_PACKAGES=1"
+        GOAL="install"
+        BITCOIN_CONFIG="--enable-gui --disable-tests --disable-gui-tests --disable-bench --enable-experimental-asm CFLAGS=-fPIC CXXFLAGS=-fPIC --enable-shared --with-incompatible-bdb"
+      script: true
+    - stage: build
+      dist: bionic
+      env: >-
+        SCRIPT=linux
+        HOST=x86_64-86-linux-gnu
+        RELEASE_FILE=ubuntu18.04-$HOST.tar.gz
+        PACKAGES="python3-zmq qtbase5-dev qttools5-dev-tools protobuf-compiler libdbus-1-dev libharfbuzz-dev libprotobuf-dev"
+        DEP_OPTS="ALLOW_HOST_PACKAGES=1"
+        GOAL="install"
+        BITCOIN_CONFIG="--enable-gui --disable-tests --disable-gui-tests --disable-bench --enable-experimental-asm CFLAGS=-fPIC CXXFLAGS=-fPIC --enable-shared --with-incompatible-bdb"
+    - stage: build
+      dist: xenial
+      env: >-
+        SCRIPT=linux
+        HOST=x86_64-86-linux-gnu
+        RELEASE_FILE=ubuntu16.04-$HOST.tar.gz
+        PACKAGES="python3-zmq qtbase5-dev qttools5-dev-tools protobuf-compiler libdbus-1-dev libharfbuzz-dev libprotobuf-dev"
+        NO_DEPENDS="true"
+        GOAL="install"
+        BITCOIN_CONFIG="--disable-tests --disable-gui-tests --disable-bench --enable-experimental-asm CFLAGS=-fPIC CXXFLAGS=-fPIC --enable-shared --with-incompatible-bdb"
     - stage: build
       dist: bionic
       env: >-
@@ -88,6 +118,12 @@ jobs:
         PACKAGES="python3 nsis g++-mingw-w64-i686 wine-binfmt wine32"
         GOAL="install"
         BITCOIN_CONFIG="--enable-gui --enable-reduce-exports"
+    - stage: build
+      os: osx
+      osx_image: xcode9.4
+      env: >-
+        RELEASE_FILE=high-KYD.dmg
+        SCRIPT=mac
     # https://travis-ci.community/t/osascript-stopped-working-on-macos-mojave/3657
     # - stage: osx-mojave
     #   os: osx
